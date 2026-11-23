@@ -8,7 +8,7 @@ test('buildPulseEvidence returns a stable empty state without runs', () => {
   assert.deepEqual(evidence.goal, null);
   assert.deepEqual(evidence.audience, { candidates: 0, eligible: 0, excluded: 0, exclusionReasons: [] });
   assert.deepEqual(evidence.execution, { created: 0, completed: 0, feedbackDenominator: 0, responded: 0, responseRate: null });
-  assert.equal(evidence.evidenceBoundary.status, '模拟数据 · 待真实任务验证');
+  assert.equal(evidence.evidenceBoundary.status, '示例数据 · 浏览器任务记录');
 });
 
 test('buildPulseEvidence uses contacted tasks as the feedback denominator', () => {
