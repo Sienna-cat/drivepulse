@@ -1,0 +1,611 @@
+{
+  "mode": "local-demo",
+  "businessDate": "2026-11-19",
+  "run": {
+    "id": "DP-001",
+    "goal": "上海冬季车主关怀 · 首次运营任务",
+    "filters": {
+      "city": "上海",
+      "minDrop": 50
+    },
+    "scenario": "normal",
+    "status": "completed",
+    "step": 4,
+    "logs": [
+      {
+        "name": "queryOwnerSegment",
+        "label": "查询车主行为数据",
+        "source": "行为数据 · 两个连续 30 天窗口",
+        "status": "success",
+        "output": {
+          "filters": {
+            "city": "上海",
+            "minDrop": 50
+          },
+          "candidateCount": 9,
+          "ownerIds": [
+            "OW-1001",
+            "OW-1002",
+            "OW-1004",
+            "OW-1005",
+            "OW-1006",
+            "OW-1007",
+            "OW-1008",
+            "OW-1011",
+            "OW-1012"
+          ]
+        },
+        "at": "2026-11-19T04:07:43.966Z"
+      },
+      {
+        "name": "getOwnerFacts",
+        "label": "核对服务需求与触达资格",
+        "source": "车主档案 · 服务记录 · 触达历史",
+        "status": "success",
+        "output": {
+          "eligible": 5,
+          "excluded": [
+            {
+              "ownerId": "OW-1004",
+              "reason": "已退订 / 明确拒绝联系"
+            },
+            {
+              "ownerId": "OW-1005",
+              "reason": "存在未解决投诉，建议人工优先处理"
+            },
+            {
+              "ownerId": "OW-1006",
+              "reason": "联系方式不完整，需补全资料"
+            },
+            {
+              "ownerId": "OW-1007",
+              "reason": "7 天内已有联系，暂缓再次触达"
+            }
+          ]
+        },
+        "at": "2026-11-19T04:07:44.569Z"
+      },
+      {
+        "name": "retrieveOperationPolicy",
+        "label": "检索并校验运营规则",
+        "source": "示例运营手册 §3.2",
+        "status": "success",
+        "output": {
+          "version": "1.0",
+          "title": "车主服务关怀规则",
+          "validUntil": "2026-12-31",
+          "source": "示例运营手册 §3.2",
+          "updatedAt": "2026-11-10",
+          "rules": [
+            "拒绝联系不触达",
+            "投诉优先转人工",
+            "联系间隔至少 7 天",
+            "执行前人工确认"
+          ]
+        },
+        "at": "2026-11-19T04:07:45.173Z"
+      },
+      {
+        "name": "prepareOutreach",
+        "label": "整理人群与关怀方案",
+        "source": "本地规则工作流 · 模板 v1",
+        "status": "success",
+        "output": {
+          "recommendedCount": 5,
+          "channel": "App 服务消息（模拟）",
+          "approvalRequired": true
+        },
+        "at": "2026-11-19T04:07:45.776Z"
+      },
+      {
+        "name": "createOperationTask",
+        "label": "创建待执行运营任务",
+        "source": "本地运营任务库",
+        "status": "success",
+        "output": {
+          "created": 4,
+          "ownerIds": [
+            "OW-1001",
+            "OW-1002",
+            "OW-1008",
+            "OW-1011"
+          ],
+          "message": "您好，我是您的车主服务伙伴。近期您咨询过用车服务，想确认问题是否已解决。如需帮助，请回复方便联系的时间；如暂不需要，回复“无需联系”即可。",
+          "externalMessagesSent": 0
+        },
+        "at": "2026-11-19T04:07:56.457Z"
+      },
+      {
+        "name": "recordOperationOutcome",
+        "label": "保存执行反馈",
+        "source": "本地运营任务库",
+        "status": "success",
+        "output": {
+          "ownerId": "OW-1001",
+          "outcome": "responded",
+          "nextAction": "人工确认需求与服务时间；尚未预约"
+        },
+        "at": "2026-11-19T04:08:06.609Z"
+      },
+      {
+        "name": "recordOperationOutcome",
+        "label": "保存执行反馈",
+        "source": "本地运营任务库",
+        "status": "success",
+        "output": {
+          "ownerId": "OW-1002",
+          "outcome": "declined",
+          "nextAction": "停止后续触达，已更新退订状态"
+        },
+        "at": "2026-11-19T04:08:06.889Z"
+      },
+      {
+        "name": "recordOperationOutcome",
+        "label": "保存执行反馈",
+        "source": "本地运营任务库",
+        "status": "success",
+        "output": {
+          "ownerId": "OW-1008",
+          "outcome": "manual",
+          "nextAction": "由服务专员核实情况并跟进"
+        },
+        "at": "2026-11-19T04:08:07.175Z"
+      },
+      {
+        "name": "recordOperationOutcome",
+        "label": "保存执行反馈",
+        "source": "本地运营任务库",
+        "status": "success",
+        "output": {
+          "ownerId": "OW-1011",
+          "outcome": "contacted",
+          "nextAction": "等待车主回复，不追加重复触达"
+        },
+        "at": "2026-11-19T04:08:07.455Z"
+      }
+    ],
+    "candidates": [
+      {
+        "id": "OW-1001",
+        "name": "林知夏",
+        "city": "上海",
+        "model": "ET5",
+        "before": 14,
+        "current": 5,
+        "need": "冬季车辆检查",
+        "lastContactDays": 18,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1001",
+        "note": "最近一次服务咨询：冬季车辆检查；需求尚未确认解决。"
+      },
+      {
+        "id": "OW-1002",
+        "name": "周予安",
+        "city": "上海",
+        "model": "ES6",
+        "before": 12,
+        "current": 4,
+        "need": "保养咨询",
+        "lastContactDays": 25,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1002",
+        "note": "最近一次服务咨询：保养咨询；需求尚未确认解决。"
+      },
+      {
+        "id": "OW-1004",
+        "name": "顾言川",
+        "city": "上海",
+        "model": "EC6",
+        "before": 10,
+        "current": 2,
+        "need": "保养咨询",
+        "lastContactDays": 40,
+        "contact": true,
+        "optOut": true,
+        "complaint": false,
+        "source": "虚构车主记录 #1004",
+        "note": "最近一次服务咨询：保养咨询；需求尚未确认解决。"
+      },
+      {
+        "id": "OW-1005",
+        "name": "唐若晴",
+        "city": "上海",
+        "model": "ES8",
+        "before": 11,
+        "current": 2,
+        "need": "服务工单",
+        "lastContactDays": 14,
+        "contact": true,
+        "optOut": false,
+        "complaint": true,
+        "source": "虚构车主记录 #1005",
+        "note": "最近一次服务咨询：服务工单；需求尚未确认解决。"
+      },
+      {
+        "id": "OW-1006",
+        "name": "许承泽",
+        "city": "上海",
+        "model": "ET5T",
+        "before": 9,
+        "current": 3,
+        "need": "补能咨询",
+        "lastContactDays": 30,
+        "contact": false,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1006",
+        "note": "最近一次服务咨询：补能咨询；需求尚未确认解决。"
+      },
+      {
+        "id": "OW-1007",
+        "name": "蒋清越",
+        "city": "上海",
+        "model": "ES7",
+        "before": 15,
+        "current": 4,
+        "need": "冬季车辆检查",
+        "lastContactDays": 3,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1007",
+        "note": "最近一次服务咨询：冬季车辆检查；需求尚未确认解决。"
+      },
+      {
+        "id": "OW-1008",
+        "name": "苏晚宁",
+        "city": "上海",
+        "model": "ET7",
+        "before": 16,
+        "current": 4,
+        "need": "保养咨询",
+        "lastContactDays": 32,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1008",
+        "note": "最近一次服务咨询：保养咨询；需求尚未确认解决。"
+      },
+      {
+        "id": "OW-1011",
+        "name": "陈星野",
+        "city": "上海",
+        "model": "ET5T",
+        "before": 18,
+        "current": 7,
+        "need": "轮胎检查",
+        "lastContactDays": 15,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1011",
+        "note": "最近一次服务咨询：轮胎检查；需求尚未确认解决。"
+      },
+      {
+        "id": "OW-1012",
+        "name": "温以宁",
+        "city": "上海",
+        "model": "ES6",
+        "before": 20,
+        "current": 6,
+        "need": "补能咨询",
+        "lastContactDays": 26,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1012",
+        "note": "最近一次服务咨询：补能咨询；需求尚未确认解决。"
+      }
+    ],
+    "eligible": [
+      {
+        "id": "OW-1001",
+        "name": "林知夏",
+        "city": "上海",
+        "model": "ET5",
+        "before": 14,
+        "current": 5,
+        "need": "冬季车辆检查",
+        "lastContactDays": 18,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1001",
+        "note": "最近一次服务咨询：冬季车辆检查；需求尚未确认解决。"
+      },
+      {
+        "id": "OW-1002",
+        "name": "周予安",
+        "city": "上海",
+        "model": "ES6",
+        "before": 12,
+        "current": 4,
+        "need": "保养咨询",
+        "lastContactDays": 25,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1002",
+        "note": "最近一次服务咨询：保养咨询；需求尚未确认解决。"
+      },
+      {
+        "id": "OW-1008",
+        "name": "苏晚宁",
+        "city": "上海",
+        "model": "ET7",
+        "before": 16,
+        "current": 4,
+        "need": "保养咨询",
+        "lastContactDays": 32,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1008",
+        "note": "最近一次服务咨询：保养咨询；需求尚未确认解决。"
+      },
+      {
+        "id": "OW-1011",
+        "name": "陈星野",
+        "city": "上海",
+        "model": "ET5T",
+        "before": 18,
+        "current": 7,
+        "need": "轮胎检查",
+        "lastContactDays": 15,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1011",
+        "note": "最近一次服务咨询：轮胎检查；需求尚未确认解决。"
+      },
+      {
+        "id": "OW-1012",
+        "name": "温以宁",
+        "city": "上海",
+        "model": "ES6",
+        "before": 20,
+        "current": 6,
+        "need": "补能咨询",
+        "lastContactDays": 26,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1012",
+        "note": "最近一次服务咨询：补能咨询；需求尚未确认解决。"
+      }
+    ],
+    "excluded": [
+      {
+        "owner": {
+          "id": "OW-1004",
+          "name": "顾言川",
+          "city": "上海",
+          "model": "EC6",
+          "before": 10,
+          "current": 2,
+          "need": "保养咨询",
+          "lastContactDays": 40,
+          "contact": true,
+          "optOut": true,
+          "complaint": false,
+          "source": "虚构车主记录 #1004",
+          "note": "最近一次服务咨询：保养咨询；需求尚未确认解决。"
+        },
+        "code": "opt_out",
+        "reason": "已退订 / 明确拒绝联系"
+      },
+      {
+        "owner": {
+          "id": "OW-1005",
+          "name": "唐若晴",
+          "city": "上海",
+          "model": "ES8",
+          "before": 11,
+          "current": 2,
+          "need": "服务工单",
+          "lastContactDays": 14,
+          "contact": true,
+          "optOut": false,
+          "complaint": true,
+          "source": "虚构车主记录 #1005",
+          "note": "最近一次服务咨询：服务工单；需求尚未确认解决。"
+        },
+        "code": "complaint",
+        "reason": "存在未解决投诉，建议人工优先处理"
+      },
+      {
+        "owner": {
+          "id": "OW-1006",
+          "name": "许承泽",
+          "city": "上海",
+          "model": "ET5T",
+          "before": 9,
+          "current": 3,
+          "need": "补能咨询",
+          "lastContactDays": 30,
+          "contact": false,
+          "optOut": false,
+          "complaint": false,
+          "source": "虚构车主记录 #1006",
+          "note": "最近一次服务咨询：补能咨询；需求尚未确认解决。"
+        },
+        "code": "missing_contact",
+        "reason": "联系方式不完整，需补全资料"
+      },
+      {
+        "owner": {
+          "id": "OW-1007",
+          "name": "蒋清越",
+          "city": "上海",
+          "model": "ES7",
+          "before": 15,
+          "current": 4,
+          "need": "冬季车辆检查",
+          "lastContactDays": 3,
+          "contact": true,
+          "optOut": false,
+          "complaint": false,
+          "source": "虚构车主记录 #1007",
+          "note": "最近一次服务咨询：冬季车辆检查；需求尚未确认解决。"
+        },
+        "code": "frequency",
+        "reason": "7 天内已有联系，暂缓再次触达"
+      }
+    ],
+    "message": "您好，我是您的车主服务伙伴。看到您近期有用车服务咨询，想了解问题是否已解决。如仍需要帮助，您可以回复希望咨询的事项和方便联系的时间，我们会协助跟进。若暂不需要，回复“无需联系”即可。",
+    "policy": {
+      "version": "1.0",
+      "title": "车主服务关怀规则",
+      "validUntil": "2026-12-31",
+      "source": "示例运营手册 §3.2",
+      "updatedAt": "2026-11-10"
+    },
+    "createdAt": "2026-11-19T04:07:43.665Z",
+    "edited": true,
+    "error": null,
+    "draftMessage": "您好，我是您的车主服务伙伴。近期您咨询过用车服务，想确认问题是否已解决。如需帮助，请回复方便联系的时间；如暂不需要，回复“无需联系”即可。",
+    "draftSelectedIds": [
+      "OW-1001",
+      "OW-1002",
+      "OW-1008",
+      "OW-1011"
+    ],
+    "approvedMessage": "您好，我是您的车主服务伙伴。近期您咨询过用车服务，想确认问题是否已解决。如需帮助，请回复方便联系的时间；如暂不需要，回复“无需联系”即可。",
+    "selectedIds": [
+      "OW-1001",
+      "OW-1002",
+      "OW-1008",
+      "OW-1011"
+    ]
+  },
+  "operations": [
+    {
+      "id": "DP-001-OW-1001",
+      "runId": "DP-001",
+      "ownerId": "OW-1001",
+      "owner": {
+        "id": "OW-1001",
+        "name": "林知夏",
+        "city": "上海",
+        "model": "ET5",
+        "before": 14,
+        "current": 5,
+        "need": "冬季车辆检查",
+        "lastContactDays": 18,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1001",
+        "note": "最近一次服务咨询：冬季车辆检查；需求尚未确认解决。"
+      },
+      "message": "您好，我是您的车主服务伙伴。近期您咨询过用车服务，想确认问题是否已解决。如需帮助，请回复方便联系的时间；如暂不需要，回复“无需联系”即可。",
+      "status": "responded",
+      "outcome": "responded",
+      "history": [
+        {
+          "outcome": "responded",
+          "at": "2026-11-19T04:08:06.609Z"
+        }
+      ],
+      "nextAction": "人工确认需求与服务时间；尚未预约",
+      "createdAt": "2026-11-19T04:07:56.457Z"
+    },
+    {
+      "id": "DP-001-OW-1002",
+      "runId": "DP-001",
+      "ownerId": "OW-1002",
+      "owner": {
+        "id": "OW-1002",
+        "name": "周予安",
+        "city": "上海",
+        "model": "ES6",
+        "before": 12,
+        "current": 4,
+        "need": "保养咨询",
+        "lastContactDays": 25,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1002",
+        "note": "最近一次服务咨询：保养咨询；需求尚未确认解决。"
+      },
+      "message": "您好，我是您的车主服务伙伴。近期您咨询过用车服务，想确认问题是否已解决。如需帮助，请回复方便联系的时间；如暂不需要，回复“无需联系”即可。",
+      "status": "declined",
+      "outcome": "declined",
+      "history": [
+        {
+          "outcome": "declined",
+          "at": "2026-11-19T04:08:06.889Z"
+        }
+      ],
+      "nextAction": "停止后续触达，已更新退订状态",
+      "createdAt": "2026-11-19T04:07:56.457Z"
+    },
+    {
+      "id": "DP-001-OW-1008",
+      "runId": "DP-001",
+      "ownerId": "OW-1008",
+      "owner": {
+        "id": "OW-1008",
+        "name": "苏晚宁",
+        "city": "上海",
+        "model": "ET7",
+        "before": 16,
+        "current": 4,
+        "need": "保养咨询",
+        "lastContactDays": 32,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1008",
+        "note": "最近一次服务咨询：保养咨询；需求尚未确认解决。"
+      },
+      "message": "您好，我是您的车主服务伙伴。近期您咨询过用车服务，想确认问题是否已解决。如需帮助，请回复方便联系的时间；如暂不需要，回复“无需联系”即可。",
+      "status": "manual",
+      "outcome": "manual",
+      "history": [
+        {
+          "outcome": "manual",
+          "at": "2026-11-19T04:08:07.175Z"
+        }
+      ],
+      "nextAction": "由服务专员核实情况并跟进",
+      "createdAt": "2026-11-19T04:07:56.457Z"
+    },
+    {
+      "id": "DP-001-OW-1011",
+      "runId": "DP-001",
+      "ownerId": "OW-1011",
+      "owner": {
+        "id": "OW-1011",
+        "name": "陈星野",
+        "city": "上海",
+        "model": "ET5T",
+        "before": 18,
+        "current": 7,
+        "need": "轮胎检查",
+        "lastContactDays": 15,
+        "contact": true,
+        "optOut": false,
+        "complaint": false,
+        "source": "虚构车主记录 #1011",
+        "note": "最近一次服务咨询：轮胎检查；需求尚未确认解决。"
+      },
+      "message": "您好，我是您的车主服务伙伴。近期您咨询过用车服务，想确认问题是否已解决。如需帮助，请回复方便联系的时间；如暂不需要，回复“无需联系”即可。",
+      "status": "contacted",
+      "outcome": "contacted",
+      "history": [
+        {
+          "outcome": "contacted",
+          "at": "2026-11-19T04:08:07.455Z"
+        }
+      ],
+      "nextAction": "等待车主回复，不追加重复触达",
+      "createdAt": "2026-11-19T04:07:56.457Z"
+    }
+  ]
+}

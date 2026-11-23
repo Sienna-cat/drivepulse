@@ -1,0 +1,61 @@
+{
+  "project": "drivepulse",
+  "checkedAt": "2026-11-23T04:03:45.712Z",
+  "runtime": "v24.22.3",
+  "browser": "Chromium / Playwright",
+  "baseURL": "http://127.0.0.1:5186",
+  "checks": [
+    {
+      "route": "/",
+      "width": 1440,
+      "pass": true
+    },
+    {
+      "route": "#/tasks",
+      "width": 1440,
+      "pass": true
+    },
+    {
+      "route": "#/owners",
+      "width": 1440,
+      "pass": true
+    },
+    {
+      "route": "#/knowledge",
+      "width": 1440,
+      "pass": true
+    },
+    {
+      "route": "#/case",
+      "width": 1440,
+      "pass": true
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "pass": true
+    },
+    {
+      "route": "#/tasks",
+      "width": 390,
+      "pass": true
+    },
+    {
+      "route": "#/owners",
+      "width": 390,
+      "pass": true
+    },
+    {
+      "route": "#/knowledge",
+      "width": 390,
+      "pass": true
+    },
+    {
+      "route": "#/case",
+      "width": 390,
+      "pass": true
+    }
+  ],
+  "issues": [],
+  "pass": true
+}

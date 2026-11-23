@@ -1,0 +1,24 @@
+✔ segment excludes zero baseline, non-declining, other city and no service need (2.323351ms)
+✔ screening protects consent, complaints, contact data and seven-day frequency (0.591806ms)
+✔ no operations are created until explicit approval (3.432435ms)
+✔ approval preserves edited copy and selection, and repeated approval is idempotent (0.728399ms)
+✔ approval rejects invalid selection, blank content and changed eligibility (0.977875ms)
+✔ failed query retries once and preserves an inspectable failure log (0.508059ms)
+✔ expired policy blocks execution and explicit demo policy update permits recovery (0.535399ms)
+✔ feedback drives metrics and refusal excludes the owner from later outreach (3.448777ms)
+✔ outcomes reject unknown values and repeated identical feedback does not add logs (0.743665ms)
+✔ empty segments stay reviewable but cannot be approved (0.398539ms)
+✔ buildPulseEvidence returns a stable empty state without runs (4.005518ms)
+✔ buildPulseEvidence uses contacted tasks as the feedback denominator (4.234673ms)
+✔ knowledge base keeps official facts and inferred audience separate (1.808798ms)
+✔ knowledge search and category filter match facts, audience and services (3.167673ms)
+✔ knowledge entries record bounded source caveats for changing facts (0.258055ms)
+✔ inferred scene cards keep audience hypotheses out of source facts (0.41305ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 159.168796
