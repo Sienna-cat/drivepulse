@@ -6,7 +6,8 @@
   "description": "A local, deterministic owner operations workflow portfolio demo",
   "scripts": {
     "start": "node --env-file-if-exists=.env server.mjs",
-    "test": "node --test tests/*.test.js"
+    "test": "node --test tests/*.test.js",
+    "build:static": "node build-static.mjs"
   },
   "engines": {
     "node": ">=24"

@@ -1,5 +1,16 @@
 # DrivePulse · 车主运营工作台
 
+## 在线 Demo（无需安装）
+
+**[点击直接操作 Drivepulse →](https://sienna-cat.github.io/drivepulse/)**
+
+[作品集与四个 Demo 总入口](https://sienna-cat.github.io/drivefollow/portfolio/#demos) · [公开源码](https://github.com/Sienna-cat/drivepulse)
+
+打开网址即可体验，无需登录、下载代码或启动本地服务。使用合成数据与浏览器规则演示，不调用真实电话、企微或大模型；操作仅在当前浏览器内保存，不会影响其他访客。DriveReach 的 40 个规则场景会在浏览器中实际执行。
+
+更新 `main` 后，GitHub Actions 会运行测试并自动部署。可用 `npm run build:static` 生成 `dist/` 静态站点。
+
+
 面向「高级 AI 产品经理 — Agent 应用」岗位的个人作品集项目。可运行的 Web Demo 加作品集说明页，展示车主关怀任务从交办、数据查询、规则校验、人工审核到执行反馈的完整过程。
 
 **当前实现是确定性规则工作流，不包含大模型调用。** 24 位车主及其业务记录均为虚构，不代表蔚来内部产品或真实业务。所有操作保存在当前浏览器，任务不会向外部渠道发送。
